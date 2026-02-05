@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Section } from '../components/Typography/Section'
 import { ProjectCard } from '../components/Cards/ProjectCard'
 import { ButtonLink } from '../components/Buttons/ButtonLink'
+import { ContactSection } from '../components/Contact/ContactSection'
 import { projects } from '../content/projects'
 import './Home.css'
 
@@ -60,19 +61,7 @@ export function Home(): React.ReactElement {
         </p>
       </Section>
 
-      <Section title="Get in touch" id="contact">
-        <p>
-          <a href="mailto:hello@example.com">Email</a>,{' '}
-          <a href="https://linkedin.com/in/example" target="_blank" rel="noopener noreferrer">
-            LinkedIn
-          </a>
-          ,{' '}
-          <a href="https://github.com/halerankin" target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>
-          .
-        </p>
-      </Section>
+      <ContactSection />
     </>
   )
 }

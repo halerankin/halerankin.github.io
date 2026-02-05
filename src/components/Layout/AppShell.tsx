@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { SkipToContent } from './SkipToContent'
+import { ContactLinks } from '../Contact/ContactLinks'
 import '../../styles/layout.css'
 
 const navItems = [
@@ -37,15 +38,7 @@ export function AppShell(): React.ReactElement {
       <footer className="app-shell__footer" role="contentinfo">
         <div className="app-shell__footer-inner">
           <p>
-            <a href="mailto:hello@example.com">Email</a>
-            {' · '}
-            <a href="https://linkedin.com/in/example" target="_blank" rel="noopener noreferrer">
-              LinkedIn
-            </a>
-            {' · '}
-            <a href="https://github.com/halerankin" target="_blank" rel="noopener noreferrer">
-              GitHub
-            </a>
+            <ContactLinks />
           </p>
         </div>
       </footer>
