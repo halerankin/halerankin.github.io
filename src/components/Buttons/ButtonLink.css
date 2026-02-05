@@ -1,0 +1,31 @@
+.btn-link {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  font-weight: 600;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-link--primary {
+  background: var(--color-accent);
+  color: var(--color-surface);
+}
+
+.btn-link--primary:hover {
+  background: var(--color-accent-hover);
+  color: var(--color-surface);
+  text-decoration: none;
+}
+
+.btn-link--secondary {
+  background: transparent;
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
+}
+
+.btn-link--secondary:hover {
+  background: var(--color-accent);
+  color: var(--color-surface);
+  text-decoration: none;
+}

@@ -1,0 +1,18 @@
+.resume-intro {
+  margin: 0 0 var(--space-4);
+}
+
+.skills-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.skills-list li {
+  margin-bottom: var(--space-1);
+  padding-left: 0;
+}
+
+.skills-list li:last-child {
+  margin-bottom: 0;
+}
