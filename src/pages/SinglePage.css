@@ -1,0 +1,347 @@
+/* SinglePage — consolidated styles (hero, focus, work, resume, masthead, band) */
+
+/* --- Tokens for dark bands --- */
+:root {
+  --ink: #0f1115;
+  --paper: #f7f7f5;
+  --inkText: rgba(255, 255, 255, 0.92);
+  --inkMuted: rgba(255, 255, 255, 0.72);
+  --inkSurface: rgba(255, 255, 255, 0.04);
+  --inkBorder: rgba(255, 255, 255, 0.08);
+}
+
+/* --- Masthead: full-bleed dark slab, bottom tear only --- */
+.masthead {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-block: clamp(1.25rem, 3vw, 2rem);
+  padding-inline: var(--page-gutter);
+  overflow: visible;
+  background: var(--ink);
+  color: var(--inkText);
+}
+
+/* Bottom tear: dark skewed strip extending into off-white area (content unskewed) */
+.masthead::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3rem;
+  height: 3rem;
+  background: var(--ink);
+  transform: skewY(-2deg);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+.masthead__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.masthead__name {
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+/* --- Hero / Intro (starts on off-white below masthead tear) --- */
+.home-hero {
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.home-hero__headline {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 1.1;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.home-hero__kicker {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin: var(--space-2) 0 var(--space-4);
+  text-transform: lowercase;
+  text-wrap: balance;
+}
+
+.home-hero__tagline {
+  margin: 0;
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  max-width: 68ch;
+  text-wrap: pretty;
+}
+
+.home-hero__tagline p {
+  margin: 0 0 var(--space-2);
+}
+
+.home-hero__tagline p:first-child {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.home-hero__Tagline p:last-child {
+  margin-bottom: 0;
+}
+
+.home-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* --- Focus areas (pillars) --- */
+.pillars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pillars li {
+  margin-bottom: var(--space-2);
+  padding-left: 0;
+}
+
+.pillars li:last-child {
+  margin-bottom: 0;
+}
+
+/* --- Band: full-bleed wrapper + inner content column --- */
+.band {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+}
+
+.band__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-block: var(--space-5);
+  padding-inline: var(--page-gutter);
+  position: relative;
+  z-index: 1;
+}
+
+/* Case studies band: near-black, inverted text, tear on top (different angle than masthead) */
+.band--dark.band--work {
+  background: var(--ink);
+  color: var(--inkText);
+  line-height: 1.65;
+}
+
+/* Tear: angled top edge — skew 2.5deg (opposite direction to masthead -2deg) */
+.band--work::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5rem;
+  background: var(--paper);
+  transform: skewY(2.5deg);
+  transform-origin: top right;
+  pointer-events: none;
+}
+
+.band--work .section__header {
+  position: relative;
+  z-index: 1;
+}
+
+.band--work .work-expand-toggle {
+  color: var(--inkMuted);
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.band--work .work-expand-toggle:hover {
+  color: var(--inkText);
+  text-decoration: underline;
+}
+
+.band--work .work-expand-toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.band--work .work-intro {
+  color: var(--inkMuted);
+}
+
+.band--work .project-list {
+  position: relative;
+  z-index: 1;
+}
+
+/* Cards inside dark band: accent bar is primary state signal */
+.band--work .project-card {
+  background: var(--inkSurface);
+  border-color: var(--inkBorder);
+}
+
+.band--work .project-card__trigger {
+  background: var(--inkSurface);
+  color: inherit;
+}
+
+.band--work .project-card__title {
+  color: var(--inkText);
+}
+
+.band--work .project-card__meta,
+.band--work .project-card__stack {
+  color: var(--inkMuted);
+}
+
+.band--work .project-card__problem {
+  color: var(--inkText);
+}
+
+.band--work .project-card__panel {
+  border-top-color: var(--inkBorder);
+}
+
+.band--work .project-card__panel-inner {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.band--work .project-card__panel-inner ul li::before {
+  color: var(--inkMuted);
+}
+
+.band--work .project-card__panel-heading,
+.band--work .project-card__outcome {
+  color: var(--inkText);
+}
+
+.band--work .project-card__trigger:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* --- Selected work (shared) --- */
+.work-expand-toggle {
+  padding: 0;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.work-expand-toggle:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+.work-expand-toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.work-intro {
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-muted);
+  max-width: 62ch;
+}
+
+.project-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.project-grid {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (min-width: 48rem) {
+  .project-grid {
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  }
+}
+
+/* --- Resume --- */
+.resume-intro {
+  margin: 0 0 var(--space-4);
+}
+
+.band--dark.band--close {
+  margin-top: 3.25rem;
+  background: var(--ink);
+  color: var(--inkText);
+  overflow: visible;
+}
+
+/* Subtle top tear only: shallow angled edge (no bottom tear) */
+.band--close::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -3rem;
+  height: 3rem;
+  background: var(--ink);
+  transform: skewY(-1.8deg);
+  transform-origin: right;
+  pointer-events: none;
+}
+
+.band--close .band__inner {
+  padding-block: clamp(2.25rem, 5vw, 3.5rem);
+}
+
+.band--close .contact-heading {
+  margin: 0 0 var(--space-2);
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  font-weight: 600;
+}
+
+.band--close .contact-links {
+  margin: 0;
+  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+  line-height: 1.5;
+}
+
+.band--close .contact-links a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Dark sections: links inherit off-white, underline only (no blue) */
+.band--dark a,
+.band--dark a:visited,
+.band--dark a:hover {
+  color: inherit;
+}
+
+.band--dark a:hover {
+  text-decoration-thickness: 2px;
+}
+

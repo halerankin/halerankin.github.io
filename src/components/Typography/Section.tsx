@@ -2,11 +2,13 @@ import type { ReactNode } from 'react'
 
 interface SectionProps {
   /** Section heading (renders as h2 unless overridden by headingLevel) */
-  title: string
+  title?: string
   /** Optional id for anchor links */
   id?: string
   /** Heading level for accessibility (default 2) */
   headingLevel?: 1 | 2 | 3
+  /** Optional content rendered beside the heading (e.g. expand/collapse toggle) */
+  titleAction?: ReactNode
   children: ReactNode
 }
 
@@ -16,6 +18,7 @@ export function Section({
   title,
   id,
   headingLevel = 2,
+  titleAction,
   children,
 }: SectionProps): React.ReactElement {
   const Tag = headingTag[headingLevel]
@@ -25,7 +28,12 @@ export function Section({
       id={id}
       aria-labelledby={id ? `${id}-heading` : undefined}
     >
-      <Tag id={id ? `${id}-heading` : undefined}>{title}</Tag>
+      <div className="section__header">
+        <Tag id={id ? `${id}-heading` : undefined}>{title}</Tag>
+        {titleAction != null ? (
+          <span className="section__title-action">{titleAction}</span>
+        ) : null}
+      </div>
       {children}
     </section>
   )

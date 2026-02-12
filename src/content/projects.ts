@@ -13,8 +13,12 @@ export interface Project {
   title: string
   role: string
   timeframe: string
-  /** 1–2 sentence problem statement */
+  /** 1-2 sentence problem statement */
   problem: string
+  /** Optional 1-2 line outcome summary (shown first in expanded panel when present). */
+  outcome?: string
+  /** Optional lead-in sentence before owned bullets (e.g. technical ownership context). */
+  ownedLeadIn?: string
   /** What I owned: architecture, a11y, CI/CD, design system, etc. */
   owned: string[]
   /** Scale, security, legacy, cross-team */
@@ -22,7 +26,7 @@ export interface Project {
   /** Measurable impact where possible */
   impact: string[]
   stack: string[]
-  links: ProjectLink[]
+  links?: ProjectLink[]
   /** Placeholder for hero or thumbnail path */
   imagePlaceholder?: string
 }
@@ -32,9 +36,13 @@ export const projects: Project[] = [
     id: 'design-system-platform',
     title: 'Design system & component platform',
     role: 'Tech lead',
-    timeframe: '2022 – present',
+    timeframe: '2022 - present',
     problem:
       'Product teams shipped inconsistent UI and duplicated patterns; design and engineering were out of sync.',
+    outcome:
+      'A shared component platform used by multiple teams; reduced duplicate code, WCAG 2.1 AA baseline for new UI, and faster feature delivery with parallel development.',
+    ownedLeadIn:
+      'I owned the technical direction and API surface of the platform, including tradeoffs between flexibility for consumers and consistency at scale.',
     owned: [
       'Component API design and accessibility (ARIA, keyboard, focus)',
       'Documentation site and usage guidelines',
@@ -50,6 +58,7 @@ export const projects: Project[] = [
       'Reduced duplicate component code by ~40%',
       'WCAG 2.1 AA baseline for all net-new UI',
       'Faster feature delivery via shared primitives',
+      'Parallel development across teams with fewer merge conflicts and shorter feedback cycles.',
     ],
     stack: ['React', 'TypeScript', 'Storybook', 'Chromatic', 'Jest', 'Playwright'],
     links: [
@@ -61,8 +70,8 @@ export const projects: Project[] = [
   {
     id: 'checkout-reliability',
     title: 'Checkout reliability & performance',
-    role: 'Senior front-end engineer',
-    timeframe: '2021 – 2022',
+    role: 'Senior UX engineer',
+    timeframe: '2021 - 2022',
     problem:
       'Checkout had higher drop-off and slower LCP than target; errors were hard to diagnose in production.',
     owned: [
@@ -82,16 +91,13 @@ export const projects: Project[] = [
       'Fewer support tickets for “stuck” checkout',
     ],
     stack: ['React', 'TypeScript', 'Node', 'Datadog', 'LaunchDarkly'],
-    links: [
-      { label: 'Case study', href: '#/case-studies/checkout-reliability' },
-    ],
     imagePlaceholder: '/placeholders/checkout.svg',
   },
   {
     id: 'internal-tooling-dex',
     title: 'Internal tooling & developer experience',
     role: 'Senior engineer',
-    timeframe: '2020 – 2021',
+    timeframe: '2020 - 2021',
     problem:
       'Internal tools were brittle and slow to change; onboarding and local dev took hours.',
     owned: [
@@ -110,16 +116,13 @@ export const projects: Project[] = [
       'Faster PR feedback via shared CI jobs',
     ],
     stack: ['TypeScript', 'Node', 'GitHub Actions', 'Docker', 'ESLint', 'Prettier'],
-    links: [
-      { label: 'Repo', href: '#' },
-    ],
     imagePlaceholder: '/placeholders/tooling.svg',
   },
   {
     id: 'accessibility-audit',
     title: 'Accessibility audit & remediation',
     role: 'Front-end engineer',
-    timeframe: '2019 – 2020',
+    timeframe: '2019 - 2020',
     problem:
       'Key flows failed WCAG 2.1 and were difficult for keyboard and screen-reader users.',
     owned: [
@@ -138,9 +141,6 @@ export const projects: Project[] = [
       'A11y included in definition of done for new features',
     ],
     stack: ['React', 'axe-core', 'NVDA', 'VoiceOver', 'Jest'],
-    links: [
-      { label: 'Summary', href: '#/case-studies/accessibility-audit' },
-    ],
     imagePlaceholder: '/placeholders/a11y.svg',
   },
 ]

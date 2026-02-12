@@ -1,29 +1,56 @@
+/* Base card: position relative for accent bar pseudo-element */
 .project-card {
+  position: relative;
   padding: var(--space-3);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+}
+
+/* Left-edge accent bar (hover + expanded state); themeable via CSS vars */
+.project-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 6px;
+  background: transparent;
+  border-radius: 0;
+  pointer-events: none;
+}
+
+.project-card--accordion:hover::before,
+.project-card--accordion:has(.project-card__trigger:focus-visible)::before {
+  background: var(--inkText);
+}
+
+.project-card--expanded::before {
+  background: var(--inkText);
 }
 
 .project-card__title {
-  margin: 0 0 var(--space-1);
+  margin: 0 0 var(--space-2);
   font-size: 1.25rem;
+  font-weight: 400;
+  transition: font-weight 120ms ease-out;
 }
 
 .project-card__title a {
-  text-decoration: none;
-  color: var(--color-text);
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
 }
 
 .project-card__title a:hover {
-  color: var(--color-accent);
-  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 
 .project-card__meta {
   margin: 0 0 var(--space-2);
   font-size: 0.9rem;
   color: var(--color-text-muted);
+  transition: opacity 120ms ease-out;
 }
 
 .project-card__problem {
@@ -36,8 +63,194 @@
   font-size: 0.85rem;
   color: var(--color-text-muted);
   font-family: var(--font-mono);
+  transition: opacity 120ms ease-out;
 }
 
 .project-card__link {
   font-weight: 500;
+}
+
+/* --- Accordion --- */
+.project-card--accordion {
+  padding: 0;
+  overflow: hidden;
+}
+
+.project-card__trigger {
+  display: block;
+  width: 100%;
+  padding: var(--space-3);
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: var(--color-surface);
+  border: none;
+  cursor: pointer;
+}
+
+.project-card__trigger:hover {
+  outline: none;
+}
+
+.project-card__trigger:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Minimal hover: accent bar is primary signal; avoid competing border/shadow */
+.project-card--accordion:hover,
+.project-card--expanded {
+  border-color: var(--color-border);
+}
+
+.project-card--expanded .project-card__title {
+  font-weight: 600;
+}
+
+.project-card--expanded .project-card__meta {
+  opacity: 0.65;
+}
+.project-card--expanded .project-card__stack {
+  opacity: 0.7;
+}
+
+.project-card__panel {
+  border-top: 1px solid var(--color-border);
+}
+
+.project-card__panel[hidden] {
+  display: none;
+}
+
+.project-card__panel-inner {
+  padding-block: var(--space-4);
+  padding-inline: var(--space-3);
+  max-width: 65ch;
+  background: var(--color-bg);
+}
+
+/* Two-column layout: narrative left, structured right (desktop only) */
+.project-card__panel-grid {
+  display: block;
+}
+
+@media (min-width: 56rem) {
+  .project-card__panel-inner {
+    max-width: 90ch;
+  }
+
+  .project-card__panel-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  .project-card__panel-right {
+    max-width: 40ch;
+    padding-top: var(--space-2);
+  }
+}
+
+.project-card__panel-right .project-card__panel-heading {
+  margin-top: var(--space-3);
+}
+
+.project-card__panel-right .project-card__panel-heading:first-child,
+.project-card__owned-lead + .project-card__panel-heading {
+  margin-top: 0;
+}
+
+.project-card__panel-right .project-card__owned-lead {
+  margin-bottom: var(--space-1);
+}
+
+.project-card__panel-heading {
+  margin: var(--space-2) 0 var(--space-1);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.project-card__panel-heading:first-child,
+.project-card__outcome + .project-card__panel-heading {
+  margin-top: 0;
+}
+
+.project-card__outcome {
+  margin: 0 0 var(--space-3);
+}
+
+.project-card__panel-meta {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  opacity: 0.92;
+}
+
+.project-card__panel-meta-stack,
+.project-card__panel-meta-links {
+  margin: 0 0 var(--space-1);
+}
+
+.project-card__panel-meta-links:last-child,
+.project-card__panel-meta-stack:last-child {
+  margin-bottom: 0;
+}
+
+.project-card__panel-meta a {
+  color: inherit;
+}
+
+.project-card__panel-meta a:hover {
+  opacity: 1;
+  text-decoration-thickness: 2px;
+}
+
+.project-card__panel-heading:first-child,
+.project-card__outcome + .project-card__panel-heading,
+.project-card__owned-lead + .project-card__panel-heading {
+  margin-top: 0;
+}
+
+.project-card__owned-lead {
+  margin: 0 0 var(--space-2);
+}
+
+/* Middot hanging leader: case study lists only, no bullets/borders */
+.project-card__panel-inner ul {
+  list-style: none;
+  margin: 0 0 var(--space-2);
+  padding-left: 0;
+}
+
+.project-card__panel-inner ul li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: var(--space-1);
+}
+
+.project-card__panel-inner ul li:last-child {
+  margin-bottom: 0;
+}
+
+.project-card__panel-inner ul li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  color: var(--panel-list-marker, var(--color-text-muted));
+}
+
+.project-card__panel-inner p {
+  margin: 0 0 var(--space-2);
+}
+
+.project-card__panel-inner p:last-child {
+  margin-bottom: 0;
+}
+
+.project-card__summary {
+  display: block; /* non-accordion fallback */
 }

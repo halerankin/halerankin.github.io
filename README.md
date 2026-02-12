@@ -1,6 +1,6 @@
 # Portfolio — Hale Rankin
 
-Senior front-end engineer portfolio. Built with Vite + React + TypeScript, deployed to GitHub Pages.
+Senior UX engineer portfolio. Built with Vite + React + TypeScript, deployed to GitHub Pages.
 
 **Live site:** [https://halerankin.github.io/](https://halerankin.github.io/)
 
