@@ -1,5 +1,7 @@
+import { useState, useCallback } from 'react'
 import type { Project } from '../../content/projects'
 import './ProjectCard.css'
+// import LinkIcon from '../../assets/icon-link.svg'
 
 interface ProjectCardProps {
   project: Project
@@ -30,14 +32,72 @@ export function ProjectCard({
   const primaryDemo = demoLinks?.find((d) => d.primary)
   const secondaryDemo = demoLinks?.filter((d) => !d.primary) ?? []
 
+  const [copied, setCopied] = useState(false)
+  const shareUrl =
+    typeof window !== 'undefined'
+      ? `${window.location.origin}${window.location.pathname}?project=${project.id}`
+      : ''
+
+  const handleCopyLink = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation()
+      if (!shareUrl) return
+      void navigator.clipboard.writeText(shareUrl).then(() => {
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      })
+    },
+    [shareUrl],
+  )
+
   const summary = (
     <>
       <div className="project-card__summary-header">
-        <h3 className="project-card__title">{project.title}</h3>
-        <div className="project-card__meta">
-          {project.role} · {project.timeframe}
+        <div className="project-card__summary-heading">
+          <h3 className="project-card__title">{project.title}</h3>
+          <div className="project-card__meta">
+            <span>{project.role} · {project.timeframe}</span>
+          </div>
         </div>
+
+        {isAccordion && shareUrl ? (
+          <button
+            type="button"
+            className="project-card__share"
+            onClick={handleCopyLink}
+            aria-label={copied ? 'Link copied' : 'Copy link to this case study'}
+            title={copied ? 'Copied!' : 'Copy link'}
+          >
+            <span className="project-card__share-inner">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M10 13a5 5 0 0 1 0-7l2-2a5 5 0 0 1 7 7l-1 1"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M14 11a5 5 0 0 1 0 7l-2 2a5 5 0 0 1-7-7l1-1"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span>{copied ? 'Copied!' : 'Copy link'}</span>
+            </span>
+          </button>
+        ) : null}
       </div>
+
       <p className="project-card__problem">{project.problem}</p>
       <p className="project-card__stack">
         {project.stack.join(' · ')}

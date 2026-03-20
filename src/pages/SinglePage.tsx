@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { Section } from '../components/Typography/Section'
 import { ProjectCard } from '../components/Cards/ProjectCard'
 import { ContactLinks } from '../components/Contact/ContactLinks'
-import { projects } from '../content/projects'
+import { projects, getProjectById } from '../content/projects'
 import './SinglePage.css'
 
 const skillCategories = [
@@ -41,9 +42,24 @@ const skillCategories = [
 ]
 
 export function SinglePage(): React.ReactElement {
+  const [searchParams] = useSearchParams()
   const [expandedProjectIds, setExpandedProjectIds] = useState<Set<string>>(
     new Set(),
   )
+
+  // Deep link: ?project=<id> expands that case study and scrolls to it
+  useEffect(() => {
+    const projectId = searchParams.get('project')
+    if (!projectId) return
+    const project = getProjectById(projectId)
+    if (!project) return
+    setExpandedProjectIds((prev) => new Set([...prev, projectId]))
+    requestAnimationFrame(() => {
+      const el = document.getElementById(`project-${projectId}`)
+      el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
+  }, [searchParams])
+
   const allExpanded =
     projects.length > 0 && expandedProjectIds.size === projects.length
   const workToggleLabel = allExpanded ? 'Collapse all' : 'Expand all'
@@ -124,7 +140,7 @@ export function SinglePage(): React.ReactElement {
             </p>
             <ul className="project-list" aria-label="Projects">
               {projects.map((project) => (
-                <li key={project.id}>
+                <li key={project.id} id={`project-${project.id}`}>
                   <ProjectCard
                     project={project}
                     isExpanded={expandedProjectIds.has(project.id)}
