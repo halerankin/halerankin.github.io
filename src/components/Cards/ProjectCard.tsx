@@ -26,7 +26,7 @@ export function ProjectCard({
   const referenceVisuals =
     project.referenceVisuals && project.referenceVisuals.length > 0 ? project.referenceVisuals : null
   
-    const demoLinks = project.demo && project.demo.length > 0 ? project.demo : null
+  const demoLinks = project.demo && project.demo.length > 0 ? project.demo : null
   const primaryDemo = demoLinks?.find((d) => d.primary)
   const secondaryDemo = demoLinks?.filter((d) => !d.primary) ?? []
 

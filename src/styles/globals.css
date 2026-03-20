@@ -1,7 +1,7 @@
 /* Portfolio — global styles, variables, resets, focus */
 
 :root {
-  --color-bg: #fafafa;
+  --color-bg: #fffbf4; 
   --color-surface: #fff;
   --color-text: #1a1a1a;
   --color-text-muted: #555;
@@ -10,7 +10,6 @@
 
   --color-text-inverse: #e8e8e8;
   --color-text-inverse-muted: #9fa3a9;
-
 
   --color-accent: #0066cc;
   --color-accent-hover: #004499;

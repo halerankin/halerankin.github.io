@@ -3,8 +3,7 @@
 /* --- Tokens for dark bands --- */
 :root {
   --ink: #0f1115;
-  --paper: #f7f7f5;
-  --inkText: rgba(255, 255, 255, 0.92);
+  --inkText: #fffbf4;
   --inkMuted: rgba(255, 255, 255, 0.72);
   --inkSurface: rgba(255, 255, 255, 0.04);
   --inkBorder: rgba(255, 255, 255, 0.08);
@@ -150,7 +149,7 @@
   left: 0;
   right: 0;
   height: 5rem;
-  background: var(--paper);
+  background: var(--color-bg);
   transform: skewY(2.5deg);
   transform-origin: top right;
   pointer-events: none;
