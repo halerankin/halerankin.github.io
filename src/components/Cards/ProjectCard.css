@@ -110,6 +110,7 @@
 .project-card--expanded .project-card__meta {
   opacity: 0.65;
 }
+
 .project-card--expanded .project-card__stack {
   opacity: 0.7;
 }
@@ -125,78 +126,351 @@
 .project-card__panel-inner {
   padding-block: var(--space-4);
   padding-inline: var(--space-3);
-  max-width: 65ch;
   background: var(--color-bg);
 }
 
-/* Two-column layout: narrative left, structured right (desktop only) */
+.project-card__panel-intro-main h4,
+.project-card__panel-left h4 {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+/* --- Expanded panel top structure --- */
+
+.project-card__panel-header {
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.project-card__panel-header-main {
+  min-width: 0;
+}
+
+.project-card__panel-demo {
+  min-width: 0;
+}
+
+.project-card__panel-demo--hero {
+  margin-top: var(--space-3);
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.project-card__demo-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.project-card__reference {
+  width: 100%;
+}
+
+.project-card__demo-left {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.project-card__demo-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.7rem 1rem;
+  color: #f3f3f3;
+  background: #171717;
+  border: 1px solid #2a2a2a;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+  width: auto;
+  flex-shrink: 0;
+  transition:
+    background 120ms ease-out,
+    border-color 120ms ease-out;
+}
+
+.project-card__demo-primary:hover {
+  background: #1f1f1f;
+  border-color: #3a3a3a;
+}
+
+.project-card__demo-primary:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.project-card__demo-secondary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 0;
+  /* border-left: 1px solid var(--color-border); */
+}
+
+.project-card__panel .project-card__panel-demo .project-card__demo-secondary a {
+  color: var(--color-text-muted-on-dark);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.project-card__panel .project-card__panel-demo .project-card__demo-secondary a:hover {
+  color: var(--color-text-on-dark);
+}
+
+.project-card__reference-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+.project-card__reference figure {
+  margin: 0;
+}
+
+.project-card__reference img {
+  border: 1px solid var(--color-text-muted);
+  width: 100%;
+  height: auto;
+}
+
+/* --- Expanded intro row --- */
+
+.project-card__panel-intro {
+  display: block;
+  margin-bottom: var(--space-4);
+}
+
+.project-card__panel-intro-main {
+  min-width: 0;
+}
+
+.project-card__intro {
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+  max-width: 62ch;
+}
+
+.project-card__intro-text { 
+  padding: 20px 0;
+}
+
+/* --- Main two-column layout --- */
+
 .project-card__panel-grid {
   display: block;
 }
 
+.project-card__panel-left,
+.project-card__panel-right {
+  min-width: 0;
+}
+
+.project-card__panel-right {
+  font-size: 0.88rem;
+  margin-top: var(--space-5);
+  color: var(--color-text-muted-on-dark);
+  max-width: none;
+  line-height: 1.3;
+}
+
+.project-card__panel-right h4 {
+  font-size: 0.78em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.project-card__panel-right ul {
+  gap: 6px;
+}
+
+.project-card__panel-right ul li {
+  margin-bottom: 0.55rem;;
+}
+
+
+/* Desktop layouts */
 @media (min-width: 56rem) {
-  .project-card__panel-inner {
-    max-width: 90ch;
+  .project-card__panel-header {
+    display: block;
   }
+
+  .project-card__panel-demo--hero {
+    margin-top: 0;
+  }
+
+  .project-card__demo-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 400px;
+    gap: var(--space-4);
+    align-items: start;
+  }
+
+  .project-card__demo-left {
+    flex-wrap: nowrap;
+  }
+
+  .project-card__reference {
+    width: auto;
+  }
+
+  .project-card__panel-intro {
+    display: block;
+  }
+
+  /* .project-card__intro-text { 
+    padding: 20px 0;
+  } */
 
   .project-card__panel-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+    grid-template-columns: minmax(0, 1.5fr) 280px;
     gap: var(--space-5);
     align-items: start;
   }
 
-  .project-card__panel-right {
-    max-width: 40ch;
-    padding-top: var(--space-2);
+  .project-card__reference p {
+    text-align: center;
+  }
+
+  .project-card__approach-section--with-image {
+    grid-template-columns: minmax(0, 1fr) 17rem;
+    gap: var(--space-4);
   }
 }
 
-.project-card__panel-right .project-card__panel-heading {
-  margin-top: var(--space-3);
+/* --- Section rhythm --- */
+
+.project-card__section {
+  margin-bottom: var(--space-4);
 }
 
-.project-card__panel-right .project-card__panel-heading:first-child,
-.project-card__owned-lead + .project-card__panel-heading {
-  margin-top: 0;
-}
-
-.project-card__panel-right .project-card__owned-lead {
-  margin-bottom: var(--space-1);
+.project-card__section:last-child {
+  margin-bottom: 0;
 }
 
 .project-card__panel-heading {
-  margin: var(--space-2) 0 var(--space-1);
+  margin: 0 0 var(--space-2);
   font-size: 1rem;
   font-weight: 600;
 }
 
-.project-card__panel-heading:first-child,
-.project-card__outcome + .project-card__panel-heading {
-  margin-top: 0;
+.project-card__subheading {
+  margin: 0 0 var(--space-1);
+  font-size: 0.96rem;
+  font-weight: 500;
+  color: var(--color-text-on-dark);
 }
 
 .project-card__outcome {
-  margin: 0 0 var(--space-3);
+  margin: 0;
 }
+
+.project-card__approach-sections {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.project-card__approach-section {
+  min-width: 0;
+}
+
+.project-card__approach-content > p {
+  margin: 0;
+}
+
+.project-card__approach-section--with-image {
+  display: grid;
+  gap: var(--space-3);
+  align-items: start;
+}
+
+.project-card__approach-figure {
+  margin: 0;
+}
+
+.project-card__approach-figure figcaption {
+  font-size: 0.8rem;
+  line-height: 1.2;
+  color: var(--color-text-muted-on-dark);
+  margin-top: 2px;
+}
+
+.project-card__approach-figure .project-card__visual-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.project-card__reference-grid img:hover {
+  transform: scale(1.5);
+  position: relative;
+  z-index: 5;
+}
+
+/* --- Visuals --- */
+
+.project-card__visuals {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.project-card__visual {
+  margin: 0;
+}
+
+.project-card__visual-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-text-muted-on-dark);
+  background: var(--color-surface);
+}
+
+.project-card__visual-image:hover {
+  transform: scale(2.25);
+  position: relative;
+  z-index: 5;
+}
+
+.project-card__visuals figcaption {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-inverse);
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.project-card__section p,
+.project-card__approach-content p,
+.intro-text {
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.project-card__visuals figcaption p:first-child {
+  /* font-size: 0.85rem; */
+  margin-bottom: 4px;
+}
+
+/* --- Meta --- */
 
 .project-card__panel-meta {
   margin-top: var(--space-4);
   padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
   font-size: 0.875rem;
   color: var(--color-text-muted);
   font-family: var(--font-mono);
   opacity: 0.92;
 }
 
-.project-card__panel-meta-stack,
-.project-card__panel-meta-links {
-  margin: 0 0 var(--space-1);
-}
-
-.project-card__panel-meta-links:last-child,
-.project-card__panel-meta-stack:last-child {
-  margin-bottom: 0;
+.project-card__panel-meta-stack {
+  margin: 0;
 }
 
 .project-card__panel-meta a {
@@ -208,20 +482,10 @@
   text-decoration-thickness: 2px;
 }
 
-.project-card__panel-heading:first-child,
-.project-card__outcome + .project-card__panel-heading,
-.project-card__owned-lead + .project-card__panel-heading {
-  margin-top: 0;
-}
-
-.project-card__owned-lead {
-  margin: 0 0 var(--space-2);
-}
-
 /* Middot hanging leader: case study lists only, no bullets/borders */
 .project-card__panel-inner ul {
   list-style: none;
-  margin: 0 0 var(--space-2);
+  margin: 0;
   padding-left: 0;
 }
 
@@ -241,14 +505,6 @@
   left: 0;
   top: 0.05em;
   color: var(--panel-list-marker, var(--color-text-muted));
-}
-
-.project-card__panel-inner p {
-  margin: 0 0 var(--space-2);
-}
-
-.project-card__panel-inner p:last-child {
-  margin-bottom: 0;
 }
 
 .project-card__summary {

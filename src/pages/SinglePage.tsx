@@ -117,9 +117,10 @@ export function SinglePage(): React.ReactElement {
             }
           >
             <p className="work-intro">
-              These projects represent recurring problem spaces I've owned: design
-              system scale, production reliability, developer tooling, and
-              accessibility work in production environments.
+            These projects reflect the kinds of problems I tend to take on—design 
+            system scale, system reliability, developer experience, and accessibility. 
+            Some are production work, others are exploratory, but all of them come from the same place: understanding the problem space and building 
+            toward a clearer, more usable system.
             </p>
             <ul className="project-list" aria-label="Projects">
               {projects.map((project) => (

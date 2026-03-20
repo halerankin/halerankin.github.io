@@ -3,9 +3,7 @@ import './ProjectCard.css'
 
 interface ProjectCardProps {
   project: Project
-  /** When provided, card is an accordion trigger; panel shows when true */
   isExpanded?: boolean
-  /** Called when the card (trigger) is clicked; only used when isExpanded is defined */
   onToggle?: () => void
 }
 
@@ -18,6 +16,20 @@ export function ProjectCard({
   const triggerId = `project-trigger-${project.id}`
   const panelId = `project-panel-${project.id}`
 
+  const hasOwned = project.owned && project.owned.length > 0
+  const approach =
+    project.approach && project.approach.length > 0 ? project.approach : null
+  const decisions =
+    project.decisions && project.decisions.length > 0 ? project.decisions : null
+  const impact =
+    project.impact && project.impact.length > 0 ? project.impact : null
+  const referenceVisuals =
+    project.referenceVisuals && project.referenceVisuals.length > 0 ? project.referenceVisuals : null
+  
+    const demoLinks = project.demo && project.demo.length > 0 ? project.demo : null
+  const primaryDemo = demoLinks?.find((d) => d.primary)
+  const secondaryDemo = demoLinks?.filter((d) => !d.primary) ?? []
+
   const summary = (
     <>
       <div className="project-card__summary-header">
@@ -28,7 +40,7 @@ export function ProjectCard({
       </div>
       <p className="project-card__problem">{project.problem}</p>
       <p className="project-card__stack">
-        {project.stack.slice(0, 4).join(' · ')}
+        {project.stack.join(' · ')}
       </p>
     </>
   )
@@ -42,59 +54,170 @@ export function ProjectCard({
       hidden={!isExpanded}
     >
       <div className="project-card__panel-inner">
-        <div className="project-card__panel-grid">
-          <div className="project-card__panel-left">
-            {project.outcome ? (
-              <>
-                <h4 className="project-card__panel-heading">Outcome</h4>
-                <p className="project-card__outcome">{project.outcome}</p>
-              </>
-            ) : null}
-            <h4 className="project-card__panel-heading">The problem</h4>
-            <p>{project.problem}</p>
-          </div>
-          <div className="project-card__panel-right">
-            {project.ownedLeadIn ? (
-              <p className="project-card__owned-lead">{project.ownedLeadIn}</p>
-            ) : null}
-            <h4 className="project-card__panel-heading">What I owned</h4>
-            <ul>
-              {project.owned.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
-            <h4 className="project-card__panel-heading">Constraints</h4>
-            <ul>
-              {project.constraints.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
-            <h4 className="project-card__panel-heading">Impact</h4>
-            <ul>
-              {project.impact.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
-            <div className="project-card__panel-meta">
-              <p className="project-card__panel-meta-stack">{project.stack.join(', ')}</p>
-              {project.links && project.links.length > 0 ? (
-                <p className="project-card__panel-meta-links">
-                  {project.links.map((link, i) => (
-                    <span key={i}>
-                      {i > 0 && ' · '}
+        <div className="project-card__panel-header">
+          <div className="project-card__panel-header-main">
+            {demoLinks ? (
+              <section className="project-card__panel-demo project-card__panel-demo--hero">
+                <div className="project-card__demo-actions">
+                  <div className="project-card__demo-left">
+                  {secondaryDemo.length > 0 ? (
+                    <div className="project-card__demo-secondary">
+                      {secondaryDemo.map((link, i) => (
+                        <a
+                          key={`secondary-${i}`}
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
+                    ) : null}
+
+                    {primaryDemo ? (
                       <a
-                        href={link.href}
+                        href={primaryDemo.href}
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="project-card__demo-primary"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        {link.label}
+                        {primaryDemo.label}
                       </a>
-                    </span>
+                    ) : null}
+                  </div>
+                  {referenceVisuals ? (
+                    <div className="project-card__reference">
+                      <div className="project-card__reference-caption">
+                        <p>
+                        Reference from Overland AI
+                        </p>
+                      </div>
+                      <div className="project-card__reference-grid">
+                        {referenceVisuals.map((ref, i) => (
+                        <figure key={i}>
+                            <img
+                              src={ref.src}
+                              alt={ref.label}
+                            />
+                        </figure>
+                        ))}
+                    </div>
+                  </div>
+                  ) : null}
+                </div>
+
+                <div className="project-card__intro-row">
+                {project.intro ? (
+                  <div className="project-card__intro-text">
+                    {project.intro}
+                  </div>
+                ) : null}
+              </div>
+              </section>
+            ) : null}
+          </div>
+        </div>
+
+        <div className="project-card__panel-intro">
+          <div className="project-card__panel-intro-main">
+            {project.outcome ? (
+              <section className="project-card__section">
+                <h4 className="project-card__panel-heading">Outcome</h4>
+                <p className="project-card__outcome">{project.outcome}</p>
+              </section>
+            ) : null}
+
+            {project.problem ? (
+              <section className="project-card__section">
+                <h4 className="project-card__panel-heading">The problem</h4>
+                <p>{project.problem}</p>
+              </section>
+            ) : null}
+          </div>
+        </div>
+
+        <div className="project-card__panel-grid">
+          <div className="project-card__panel-left">
+
+          {approach?.length ? (
+            <section className="project-card__section">
+              <h4 className="project-card__panel-heading">Approach</h4>
+              <div className="project-card__approach-sections">
+                {approach.map((item, i) => {
+                  const hasImage = !!item.imageSrc
+
+                  return (
+                    <div
+                      key={`${item.title}-${i}`}
+                      className={`project-card__approach-section ${hasImage ? 'project-card__approach-section--with-image' : ''}`}
+                    >
+                      <div className="project-card__approach-content">
+                        {item.title ? (
+                          <h5 className="project-card__subheading">{item.title}</h5>
+                        ) : null}
+
+                        <p>{item.description}</p>
+                      </div>
+
+                      {hasImage ? (
+                        <figure className="project-card__approach-figure">
+                          <img
+                            src={item.imageSrc}
+                            alt={item.imageLabel ?? ''}
+                            className="project-card__visual-image"
+                            loading="lazy"
+                          />
+                          {(item.imageLabel || item.imageCaption) ? (
+                            <figcaption className="project-card__visual-caption">
+                              {item.imageCaption}
+                            </figcaption>
+                          ) : null}
+                        </figure>
+                      ) : null}
+                    </div>
+                  )
+                })}
+              </div>
+            </section>
+          ) : null}
+          </div>
+
+          <div className="project-card__panel-right">
+            {decisions ? (
+              <section className="project-card__section">
+                <h4 className="project-card__panel-heading">Key decisions</h4>
+                <ul>
+                  {decisions.map((item, i) => (
+                    <li key={i}>{item}</li>
                   ))}
-                </p>
+                </ul>
+              </section>
+            ) : null}
+
+            {hasOwned ? (
+              <section className="project-card__section">
+                <h4 className="project-card__panel-heading">What I owned</h4>
+                <ul>
+                  {project.owned.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
+
+            {impact ? (
+                <section className="project-card__section">
+                  <h4 className="project-card__panel-heading">Why it matters</h4>
+                  <ul>
+                    {impact.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                </section>
               ) : null}
-            </div>
           </div>
         </div>
       </div>
