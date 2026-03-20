@@ -33,9 +33,10 @@ export function ProjectCard({
   const secondaryDemo = demoLinks?.filter((d) => !d.primary) ?? []
 
   const [copied, setCopied] = useState(false)
+  // HashRouter uses the hash for routing; query params must be in the hash
   const shareUrl =
     typeof window !== 'undefined'
-      ? `${window.location.origin}${window.location.pathname}?project=${project.id}`
+      ? `${window.location.origin}${window.location.pathname}#/?project=${project.id}`
       : ''
 
   const handleCopyLink = useCallback(

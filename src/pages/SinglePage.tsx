@@ -43,22 +43,33 @@ const skillCategories = [
 
 export function SinglePage(): React.ReactElement {
   const [searchParams] = useSearchParams()
+  // HashRouter reads from hash (#/?project=id); fallback to path search for non-hash URLs
+  const projectIdFromUrl =
+    searchParams.get('project') ??
+    (typeof window !== 'undefined'
+      ? new URLSearchParams(window.location.search).get('project')
+      : null)
+  const validProjectFromUrl =
+    projectIdFromUrl && getProjectById(projectIdFromUrl)
+      ? projectIdFromUrl
+      : null
+
   const [expandedProjectIds, setExpandedProjectIds] = useState<Set<string>>(
-    new Set(),
+    () => (validProjectFromUrl ? new Set([validProjectFromUrl]) : new Set()),
   )
 
-  // Deep link: ?project=<id> expands that case study and scrolls to it
+  // Deep link: ?project=<id> scrolls to the expanded case study
   useEffect(() => {
-    const projectId = searchParams.get('project')
-    if (!projectId) return
-    const project = getProjectById(projectId)
-    if (!project) return
-    setExpandedProjectIds((prev) => new Set([...prev, projectId]))
-    requestAnimationFrame(() => {
-      const el = document.getElementById(`project-${projectId}`)
-      el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    if (!validProjectFromUrl) return
+    // Wait for layout after expand; double rAF ensures DOM has settled
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const el = document.getElementById(`project-${validProjectFromUrl}`)
+        el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
     })
-  }, [searchParams])
+    return () => cancelAnimationFrame(id)
+  }, [validProjectFromUrl])
 
   const allExpanded =
     projects.length > 0 && expandedProjectIds.size === projects.length
