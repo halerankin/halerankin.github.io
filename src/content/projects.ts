@@ -131,10 +131,6 @@ export const projects: Project[] = [
         label: 'GitHub repo',
         href: 'https://github.com/halerankin/agv-dashboard-ui',
       },
-      {
-        label: 'Video walkthrough',
-        href: 'https://youtube.com/...',
-      },
     ],  
     referenceVisuals: [
       {
