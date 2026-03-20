@@ -3,6 +3,8 @@ import multiVehicleAwareness from '../assets/multi-vehicle-awareness.jpg'
 import zoomDetailLevels from '../assets/zoom-detail-levels.jpg'
 import OAIVideoOverlay from '../assets/OAI--video-overlay-800x450.jpg'
 import OAIMultiVehicle from '../assets/OIA--multi-vehicle-800x450.jpg'
+import IconSystem from '../assets/icon-system.svg';
+import IconGallery from '../assets/icon-gallery.jpg'
 
 /**
  * Typed content model for portfolio projects/case studies.
@@ -23,6 +25,13 @@ export interface ProjectDemoLink {
   primary?: boolean | undefined
 }
 
+export interface IntroVisual {
+  type: 'svg' | 'image'
+  label: string
+  caption?: string
+  src: string
+}
+
 export interface ProjectVisual {
   type: 'image'
   label: string
@@ -41,6 +50,7 @@ export interface Project {
   outcome?: string
 
   approach?: ProjectApproachItem[]
+  scope?: string[],
   owned: string[]
   decisions?: string[]
   impact?: string[]
@@ -49,6 +59,8 @@ export interface Project {
   imagePlaceholder?: string
 
   demo?: ProjectDemoLink[]
+  introVisual?: IntroVisual
+  referenceHeading?: string
   referenceVisuals?: ProjectVisual[]
 }
 
@@ -131,7 +143,8 @@ export const projects: Project[] = [
         label: 'GitHub repo',
         href: 'https://github.com/halerankin/agv-dashboard-ui',
       },
-    ],  
+    ],
+    referenceHeading: 'Reference from Overland AI',
     referenceVisuals: [
       {
         type: 'image',
@@ -148,7 +161,105 @@ export const projects: Project[] = [
         src: OAIMultiVehicle,
       },
     ]
-  }  
+  },
+  {
+    id: 'fabric-svg-system',
+    title: 'Unifying SVG Assets into a Component, Tooling, and Deployment System',
+    role: 'Senior UX Engineer',
+    timeframe: '2020-2025',
+  
+    intro:
+      'While building components for Fabric UX, I kept running into friction around SVG assets—icons and illustrations were hard to discover, and disconnected from the way developers actually used them. What started as a small effort to make icons easier to consume turned into a system spanning components, tooling, and deployment.',
+  
+    problem:
+      'SVG assets were shared, but there was no system connecting design output to developer consumption. Naming was inconsistent, discovery was manual, and updates required coordination across teams. The result was duplication, drift between design and code, and slow adoption of new assets.',
+  
+    outcome:
+      'I built a system that connected design assets directly to developer workflows: a TypeScript web component for rendering, a React gallery for discovery, and a CI/CD pipeline for distributing versioned assets.',
+  
+    approach: [
+      {
+        title: 'Treating SVGs as a system, not files',
+        description:
+          'Instead of handling icons as static assets, I treated them as part of a system. That meant defining structure, naming, and consumption patterns so the same asset could move cleanly from design to code to deployment without reinterpretation.',
+      },
+      {
+        title: 'Building a presentation layer developers could trust',
+        description:
+          'I created a TypeScript-based web component for rendering SVG icons consistently across frameworks. This ensured accessibility, sizing, and styling behavior were predictable, removing the need for teams to reimplement icon logic.',
+      },
+      {
+        title: 'Aligning design and engineering through discovery',
+        description:
+          'I built a React-based icon gallery that allowed designers and engineers to search, filter, and reference icons by name. This became the shared source of truth for asset usage, reducing ambiguity and back-and-forth.',
+        imageSrc: IconGallery,
+        imageLabel: 'Icon gallery',
+        imageCaption: 'A shared icon gallery aligns design and engineering through consistent naming, discoverability, and direct access to implementation.',
+      },
+      {
+        title: 'Establishing a deployment pipeline for assets',
+        description:
+          'I organized the workflow for transforming raw SVGs into versioned packages. Assets were processed, validated, and published to npm and Azure Artifacts, making updates consistent and consumable across internal and external teams.',
+      },
+      {
+        title: 'Connecting the workflow end-to-end',
+        description:
+          'The key shift was linking everything together—design outputs, component consumption, and deployment. Updates to SVGs could flow through a predictable pipeline instead of requiring manual coordination between teams.',
+      },
+    ],
+    scope: ['System design', 'Frontend architecture', 'Tooling', 'CI/CD'],
+    owned: [
+      'Defined the end-to-end SVG asset system spanning design, engineering, and deployment',
+      'Built core infrastructure for asset rendering, discovery, and distribution',
+      'Established workflows connecting design outputs to developer consumption',
+      'Led alignment between design and engineering on naming, structure, and usage',
+    ],
+  
+    decisions: [
+      'Built a framework-agnostic web component so icons could be consumed consistently across environments',
+      'Used a visual gallery instead of documentation to make asset discovery and naming explicit',
+      'Treated asset delivery as a pipeline problem to enable versioned distribution',
+      'Defined naming and structure early to support scale without refactoring',
+    ],
+  
+    impact: [
+      'Shifted SVG assets from ad hoc usage to a structured, system-driven workflow',
+      'Reduced coordination overhead between design and engineering teams',
+      'Enabled consistent, versioned distribution of assets across applications',
+      'Created a foundation for scaling beyond icons to broader asset systems',
+    ],
+  
+    stack: [
+      'TypeScript',
+      'Web Components',
+      'React',
+      'Storybook',
+      'Node.js',
+      'Azure DevOps',
+      'npm',
+      'Azure Artifacts',
+      'SVG tooling (SVGO/SVGR)'
+    ],
+  
+    demo: [
+      {
+        label: 'Icon gallery',
+        href: 'https://fabricux-c6c9fchnggh3d5dn.b02.azurefd.net/?path=/docs/resources-icon-gallery--docs',
+        primary: true,
+      }
+    ],
+    introVisual: 
+      {
+        type: 'svg',
+        label: 'SVG asset system flow',
+        caption:
+          'An icon problem expanded into a system—connecting asset processing, component rendering, discovery, and distribution.',
+        src: IconSystem,
+      },
+    referenceHeading: 'SVG System',
+    referenceVisuals: [
+    ]
+  }
 ]
 
 /** Get a single project by id, or undefined. */

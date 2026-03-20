@@ -90,11 +90,11 @@ export function ProjectCard({
                   </div>
                   {referenceVisuals ? (
                     <div className="project-card__reference">
-                      <div className="project-card__reference-caption">
-                        <p>
-                        Reference from Overland AI
-                        </p>
-                      </div>
+                      {project.referenceHeading ? (
+                        <div className="project-card__reference-caption">
+                          <p>{project.referenceHeading}</p>
+                        </div>
+                      ): null}
                       <div className="project-card__reference-grid">
                         {referenceVisuals.map((ref, i) => (
                         <figure key={i}>
@@ -110,11 +110,23 @@ export function ProjectCard({
                 </div>
 
                 <div className="project-card__intro-row">
-                {project.intro ? (
-                  <div className="project-card__intro-text">
-                    {project.intro}
-                  </div>
-                ) : null}
+                  {project.intro ? (
+                    <div className="project-card__intro-text">
+                      {project.intro}
+                    </div>
+                  ) : null}
+
+                  {project.introVisual && (
+                    <figure className="project-card__system-visual">
+                      <img
+                        src={project.introVisual.src}
+                        alt={project.introVisual.label}
+                      />
+                      {project.introVisual.caption && (
+                        <figcaption>{project.introVisual.caption}</figcaption>
+                      )}
+                    </figure>
+                  )}
               </div>
               </section>
             ) : null}
@@ -123,17 +135,17 @@ export function ProjectCard({
 
         <div className="project-card__panel-intro">
           <div className="project-card__panel-intro-main">
-            {project.outcome ? (
-              <section className="project-card__section">
-                <h4 className="project-card__panel-heading">Outcome</h4>
-                <p className="project-card__outcome">{project.outcome}</p>
-              </section>
-            ) : null}
-
             {project.problem ? (
               <section className="project-card__section">
                 <h4 className="project-card__panel-heading">The problem</h4>
                 <p>{project.problem}</p>
+              </section>
+            ) : null}
+
+            {project.outcome ? (
+              <section className="project-card__section">
+                <h4 className="project-card__panel-heading">Outcome</h4>
+                <p className="project-card__outcome">{project.outcome}</p>
               </section>
             ) : null}
           </div>
@@ -186,6 +198,9 @@ export function ProjectCard({
           </div>
 
           <div className="project-card__panel-right">
+            <p className="project-card__scope">
+              {project.scope ? project.scope.join(' · ') : null}
+            </p>
             {decisions ? (
               <section className="project-card__section">
                 <h4 className="project-card__panel-heading">Key decisions</h4>
