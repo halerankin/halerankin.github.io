@@ -244,7 +244,7 @@ export const projects: Project[] = [
     demo: [
       {
         label: 'Icon gallery',
-        href: 'https://fabricux-c6c9fchnggh3d5dn.b02.azurefd.net/?path=/docs/resources-icon-gallery--docs',
+        href: 'https://fabricux-c6c9fchnggh3d5dn.b02.azurefd.net/?path=/docs/for-designers-icon-gallery--docs',
         primary: true,
       }
     ],
