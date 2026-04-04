@@ -1,27 +1,25 @@
 /* Layout: app shell, main content width, spacing */
 
-:root {
-  --page-gutter: var(--space-2);
-}
-
-@media (min-width: 48rem) {
-  :root {
-    --page-gutter: var(--space-3);
-  }
-}
-
 .section {
-  margin-top: var(--space-4);
+  margin-top: var(--space-5);
 }
 
 .section:first-child {
   margin-top: 0;
 }
 
-.section h1,
-.section h2,
-.section h3 {
-  margin: 0 0 var(--space-2);
+.section:last-child {
+  margin-bottom: var(--space-5);
+}
+
+.section :is(h1, h2, h3) {
+  margin: 0 0 var(--space-3);
+}
+
+.section h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .section__header {
@@ -29,46 +27,51 @@
   align-items: baseline;
   flex-wrap: wrap;
   gap: var(--space-2);
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
 }
 
-.section__header h1,
-.section__header h2,
-.section__header h3 {
+.section__header:has(.section__title-action) {
+  justify-content: space-between;
+}
+
+.section > :is(h1, h2, h3) {
+  margin: 0 0 var(--space-3);
+}
+
+.section__header :is(h1, h2, h3) {
   margin: 0;
 }
 
-.section__title-action {
-  font-size: 0.9rem;
-  font-weight: normal;
-  color: var(--color-text-muted);
+.section__header :is(h2) {
+  color: var(--text-strong);
 }
 
-.section p,
-.section ul {
+.section__title-action {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.section p {
   margin: 0 0 var(--space-2);
 }
 
 .section ul {
-  list-style: none;
   margin: 0;
-  padding: 0;
+  padding-left: 1.25rem;
 }
 
 .section li {
   margin-bottom: var(--space-1);
-  padding-left: 0;
 }
 
-.section li:last-child {
+.section li:last-child,
+.pillars li:last-child {
   margin-bottom: 0;
 }
 
-.section p:last-child,
-.section ul:last-child {
+.section :is(p, ul):last-child {
   margin-bottom: 0;
 }
-
 
 .app-shell {
   min-height: 100vh;

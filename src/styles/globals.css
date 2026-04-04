@@ -1,44 +1,78 @@
 /* Portfolio — global styles, variables, resets, focus */
 
 :root {
-  --color-bg: #fffbf4; 
-  --color-surface: #fff;
-  --color-text: #1a1a1a;
-  --color-text-muted: #555;
-  --color-text-on-dark: #f3f3f3;
-  --color-text-muted-on-dark: #b8bcc2;
-  --text-primary: #E6EAF0;
-  --text-secondary: #AAB2BF;
+  /* Foundations */
+  --color-bg: #5f646b;
+  --color-surface: #343943;
+  --color-surface-2: #2b3038;
+  --color-surface-3: #1f242c;
 
-  --color-text-inverse: #e8e8e8;
-  --color-text-inverse-muted: #9fa3a9;
+  /* Light content surfaces */
+  --color-panel: #cfd3db;
+  --color-panel-2: #b9bec8;
+  --color-panel-3: #a7adb8;
 
-  --color-accent: #0066cc;
-  --color-accent-hover: #004499;
-  --color-border: #e0e0e0;
+  /* Text on dark */
+  --ink-strong: #f3f5f8;
+  --ink: #d7dbe3;
+  --ink-muted: #a7afbd;
+  --ink-subtle: #8d96a5;
+
+  /* Text on light */
+  --text-strong: #11151b;
+  --text-primary: #232933;
+  --text-secondary: #505867;
+  --text-tertiary: #70798a;
+
+  /* Accent system */
+  --color-accent: #a9df72;
+  --color-accent-hover: #98cf61;
+  --color-accent-pressed: #87bd52;
+
+  --color-accent-secondary: #7f8eae;
+
+  /* Borders */
+  --color-border: #4a515d;
+  --color-border-strong: #646c79;
+  --color-border-light: #a7adb8;
+
+  /* Status / utility */
+  --color-success: #a9df72;
+  --color-focus: #c7ef9a;
+  --color-selection: #a9df72;
+
+  /* Layout helpers */
+  --shadow-soft: 0 10px 30px rgb(0 0 0 / 0.18);
+  --shadow-card: 0 6px 16px rgb(0 0 0 / 0.16);
+  --radius: 0.375rem;
+  --radius-card: 0.25rem;
+  --radius-control: 0.5rem;
+
+
+  --focus-ring: 2px solid var(--color-accent);
+  --focus-ring-offset: 2px;
+
   --font-sans: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   --font-mono: ui-monospace, monospace;
   --max-width: 72rem;
   --space-unit: 0.25rem;
+  --space-0: calc(var(--space-unit) * 1);
   --space-1: calc(var(--space-unit) * 2);
+  --space-1-5: calc(var(--space-unit) * 3);  /* 0.75rem */
   --space-2: calc(var(--space-unit) * 4);
+  --space-2-5: calc(var(--space-unit) * 5);  /* 1.25rem */
   --space-3: calc(var(--space-unit) * 6);
+  --space-3-5: calc(var(--space-unit) * 7);  /* 1.75rem */
   --space-4: calc(var(--space-unit) * 8);
   --space-5: calc(var(--space-unit) * 12);
-  --radius: 0.375rem;
+
+  --page-gutter: var(--space-2);
 }
 
-.offscreen {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
+@media (min-width: 48rem) {
+  :root {
+    --page-gutter: var(--space-3);
+  }
 }
 
 *,
@@ -48,43 +82,39 @@
 }
 
 html {
-  font-size: 0.94rem;
+  font-size: 100%;
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
   line-height: 1.6;
-  color: var(--color-text);
+  color: var(--ink);
   background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Visible focus for keyboard users; reduce for mouse if desired via :focus-visible */
+/* Keyboard focus visible; mouse :focus without :focus-visible stays clean */
 :focus {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
 }
 
 :focus:not(:focus-visible) {
   outline: none;
 }
 
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-/* Skip link: visible on focus */
 .skip-link {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 100;
   padding: var(--space-1) var(--space-2);
-  background: var(--color-text);
-  color: var(--color-surface);
+  background: var(--color-surface);
+  color: var(--ink);
   font-weight: 600;
   text-decoration: none;
   transform: translateY(-100%);
@@ -107,8 +137,8 @@ a:hover {
 }
 
 a:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
 }
 
 img {

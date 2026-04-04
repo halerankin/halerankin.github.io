@@ -10,7 +10,7 @@ interface ContactLinksProps {
 
 /**
  * Renders contact links with consistent external-link handling (target, rel).
- * Used by ContactSection and AppShell footer.
+ * Used where contact links are rendered (e.g. homepage).
  */
 export function ContactLinks({
   separator = ' · ',
