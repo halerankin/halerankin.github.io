@@ -162,15 +162,6 @@ export function SinglePage(): React.ReactElement {
         <p>Quality is a shared responsibility. Accessibility, performance, and reliability are built into the process—not added later.</p>
       </Section>
 
-      {/* Resume */}
-      <Section id="resume">
-        <p className="resume-intro">
-          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-            View full resume →
-          </a>
-        </p>
-      </Section>
-
       {/* Skills At a Glance */}
       <Section id="skills" title="Skills">
         <ul className="pillars" aria-labelledby="skills-heading">
